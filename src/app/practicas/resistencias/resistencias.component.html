@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-md-12">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center;">
+            <img [src]="image">
+        </div>
+    </div>
+    <div class="col-8 mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="color_banda1">Banda 1</label>
+                <select [(ngModel)]="color_banda1" name="color_banda1" class="form-control">
+                    <option *ngFor="let color of colores" [value]="color" style="background-color: {{ color }} ;">{{ color }}</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="color_banda1">Banda 2</label>
+                <select [(ngModel)]="color_banda2" name="color_banda1" class="form-control">
+                    <option *ngFor="let color of colores" [value]="color" style="background-color: {{ color }} ;"> {{ color }}</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="color_banda1">Banda 3</label>
+                <select [(ngModel)]="color_banda3" name="color_banda1" class="form-control">
+                    <option *ngFor="let color of colores" [value]="color" style="background-color: {{ color }} ;">{{ color }}</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="toleracio">Tolerancia</label>
+                <select [(ngModel)]="tolerancia" name="toleracio" class="form-control">
+                    <option *ngFor="let tl of tolerancias" [value]="tl" style="background-color: {{ tl }} ;">{{ tl }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <button (click)="calcular()">Calcular</button>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="class-12">
+                <table class="table">
+                    <thead>
+                        <th>Color 1</th>
+                        <th>Color 2</th>
+                        <th>Color 3</th>
+                        <th>Resistencia</th>
+                        <th>Resistencia menor</th>
+                        <th>Resistencia mayor</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="background-color: {{ color_banda1 }};">{{ color_banda1 }}</td>
+                            <td style="background-color: {{ color_banda2 }};">{{ color_banda2 }}</td>
+                            <td style="background-color: {{ color_banda3 }};">{{ color_banda3 }}</td>
+                            <td>{{ resistencia }}</td>
+                            <td>{{ resistencia_me }}</td>
+                            <td>{{ resistencia_ma }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
