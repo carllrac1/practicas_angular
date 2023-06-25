@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-12 text-center my-5">
+        <h2 class="text-primary">
+            Bienvenido a cinepolis
+        </h2>
+    </div>
+    <div class="col-md-6 d-flex flex-nowrap justify-content-center align-items-center">
+        <div class="card w-75">
+            <div class="card-header text-center">
+                <h4>Registra tus datos</h4>
+            </div>
+            <div class="card-body">
+                <div class="my-md-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre" [(ngModel)]="compra.nombre">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="numero_personas" class="form-label">Numero de personas</label>
+                            <input type="number" class="form-control" name="numero_personas" id="numero_personas" min="1" [(ngModel)]="compra.num_personas">
+                        </div>
+                    </div>
+                </div>
+                <div class="my-md-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="num_boletos" class="form-label">Cantidad de boletos</label>
+                            <input type="number" name="num_boletos" id="num_boletos" class="form-control" [(ngModel)]="compra.num_boletos">
+                        </div>
+                    </div>
+                </div>
+                <div class="my-md-5">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-check form-switch text-center d-flex flex-nowrap justify-content-center align-items-center">
+                                <input class="form-check-input" type="checkbox" role="switch" id="tarjeta_cineco" name="tarjeta_cineco" [(ngModel)]="compra.tarjeta">
+                                <label class="form-check-label" for="tarjeta_cineco">&nbsp;&nbsp;¿Cuentas con tarjeta cineco?</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="my-md-5">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <button class="btn btn-primary" (click)="calcular()">
+                                Enviar formulario
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-md-6 d-flex flex-nowrap justify-content-center align-items-center">
+        <div class="card w-75">
+            <div class="card-header">
+                <h4>Detalles de tu compra</h4>
+            </div>
+            <div class="card-body">
+
+                <div *ngIf="!puede_comprar">
+                    <p>Lo sentimos, no puedes realizar esta compra</p>
+                </div>
+                <hr *ngIf="!puede_comprar">
+                <div *ngIf="compra.nombre">
+                    <p><b>Nombre:</b> {{ compra.nombre }} </p>
+                </div>
+                <hr *ngIf="compra.nombre">
+                <div *ngIf="compra.num_personas">
+                    <p><b>Número de personas: </b>{{ compra.num_personas }} </p>
+                </div>
+                <hr *ngIf="compra.num_personas">
+                <div *ngIf="compra.num_boletos">
+                    <p><b>Cantidad de boletos: </b>{{ compra.num_boletos }} </p>
+                </div>
+                <hr *ngIf="compra.num_boletos">
+                <div *ngIf="compra.tarjeta">
+                    <p>Se aplicará un 10% de descuento con tu <b>Tarjeta cineco</b> </p>
+                </div>
+                <hr *ngIf="compra.tarjeta">
+                <p *ngIf="puede_comprar" class="text-end"><b>Total: </b>${{ total.toFixed(2) }}</p>
+            </div>
+        </div>
+    </div>
+</div>

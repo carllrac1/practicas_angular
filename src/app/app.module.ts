@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { PracticasModule } from './practicas/practicas.module';
+import { TareaModule } from './practicas/tarea/tarea.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { PracticasModule } from './practicas/practicas.module';
   ],
   imports: [
     BrowserModule,
-    PracticasModule
+    PracticasModule,
+    TareaModule
   ],
   providers: [],
   bootstrap: [AppComponent]
