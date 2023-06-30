@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { PracticasModule } from './practicas/practicas.module';
 import { TareaModule } from './practicas/tarea/tarea.module';
+import { AppRoutingModule } from './app.routing.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { TareaModule } from './practicas/tarea/tarea.module';
   imports: [
     BrowserModule,
     PracticasModule,
-    TareaModule
+    TareaModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
