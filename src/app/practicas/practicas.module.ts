@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ResistenciasComponent } from './resistencias/resistencias.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CinepolisComponent } from './cinepolis/cinepolis.component';
-import { DistanciasComponent } from './tarea/distancias/distancias.component';
-import { TareaModule } from './tarea/tarea.module';
+import { PizzasComponent } from './pizzas/pizzas.component';
 
 
 
@@ -12,14 +11,17 @@ import { TareaModule } from './tarea/tarea.module';
   declarations: [
     ResistenciasComponent,
     CinepolisComponent,
+    PizzasComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     ResistenciasComponent,
     CinepolisComponent,
+    PizzasComponent,
   ]
 })
 export class PracticasModule { }

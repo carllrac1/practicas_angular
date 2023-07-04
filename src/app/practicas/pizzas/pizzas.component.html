@@ -1,0 +1,209 @@
+
+<div class="row d-xl-flex flex-wrap align-items-center justify-content-center">
+    <div class="card col-10">
+
+        <div class="text-center">
+            <h1 class="display-3">Pizzas</h1>
+        </div>
+        <hr>
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" >
+            <div class="toast-body">
+              El formulario no cumple con los requisitos
+              <div class="mt-2 pt-2 border-top">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Close</button>
+              </div>
+            </div>
+        </div>
+        <form [formGroup]="compraForm" (ngSubmit)="onSubmit()">
+            <div class="row d-flex flex-wrap justify-content-center align-items-center">
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" formControlName="nombre">
+                                <!-- error al validar form -->
+                                <div *ngIf="compraForm.get('nombre')?.touched && compraForm.get('nombre')?.errors?.['required']">
+                                    <p class="text-danger">Este campo es requerido</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="direccion" class="form-label">Direccion</label>
+                                <input type="text" class="form-control" formControlName="direccion">
+                                <div *ngIf="compraForm.get('direccion')?.touched && compraForm.get('direccion')?.errors?.['required']">
+                                    <p class="text-danger">Este campo es requerido</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="telefono" class="form-label">Telefono</label>
+                                <input type="text" class="form-control" formControlName="telefono">
+                                <div *ngIf="compraForm.get('telefono')?.touched && compraForm.get('telefono')?.errors?.['required']">
+                                    <p class="text-danger">Este campo es requerido</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row d-flex flex-wrap justify-content-center align-items-center">
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tamaños</h5>
+                                    <div class="col-12" *ngFor="let tamano of tamanos">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="tamano" formControlName="tamano" [value]="tamano">
+                                            <label class="form-check-label">
+                                              {{ tamano.nombre }} ${{ tamano.valor }}
+                                            </label>
+                                        </div>                      
+                                    </div>
+                                    <div *ngIf="compraForm.get('tamano')?.touched && compraForm.get('tamano')?.errors?.['required']">
+                                        <p class="text-danger">Este campo es requerido</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ingredientes</h5>
+                                    <div class="col-12" *ngFor="let ingrediente of ingredientes">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" name="ingredientes" [value]="ingrediente" formControlName="ingredientes" (ngModelChange)="agregarIngrediente(ingrediente, $event)">
+                                            <label class="form-check-label">
+                                                {{ ingrediente.nombre }} ${{ ingrediente.valor }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="compraForm.get('ingredientes')?.touched && compraForm.get('ingredientes')?.errors?.['required']">
+                                        <p class="text-danger">Este campo es requerido</p>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="row d-flex flex-wrap justify-content-center align-items-center">
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <div class="form-label">Numero de pizzas</div>
+                                        <input type="number" class="form-control" step="1" formControlName="num_pizzas" [min]="1">
+                                    </div>
+                                    <div *ngIf="compraForm.get('num_pizzas')?.touched && compraForm.get('num_pizzas')?.errors?.['required']">
+                                        <p class="text-danger">Este campo es requerido</p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-label">Fecha</div>
+                                        <input type="date" class="form-control" step="1" formControlName="fecha">
+                                    </div>
+                                    <div *ngIf="compraForm.get('fecha')?.touched && compraForm.get('fecha')?.errors?.['required']">
+                                        <p class="text-danger">Este campo es requerido</p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <button class="btn btn-outline-primary w-100">Agregar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </form>
+        <div class="row d-flex flex-wrap justify-content-center align-items-center">
+            <div class="col-8">
+                <div class="row">
+                    <div class="col-6">
+                        <table class="table-responsive table table-striped table-bordered">
+                            <thead class="text-center">
+                                <tr>
+                                    <th scope="col" class="bg-info bg-opacity-50">Tamaño</th>
+                                    <th scope="col" class="bg-info bg-opacity-50">Ingredientes</th>
+                                    <th scope="col" class="bg-info bg-opacity-50">Numero de pizzas</th>
+                                    <th scope="col" class="bg-info bg-opacity-50">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- hacer la fila seleccionabble -->
+                                <tr *ngFor="let orden of ordenes; let last = last" class="pointer-event" role="button" (click)="ordenAccion = orden">
+                                    <td [ngClass]="(ordenAccion && ordenAccion == orden) ? 'bg-danger text-white' : ''">{{ orden.pizza.tamano.nombre }}</td>
+                                    <td [ngClass]="(ordenAccion && ordenAccion == orden) ? 'bg-danger text-white' : ''">
+                                        <p>
+                                            <span *ngFor="let ingrediente of orden.pizza.ingredientes; let last = last">
+                                                {{ ingrediente.nombre }}{{ last ? '' : ', ' }}
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td [ngClass]="(ordenAccion && ordenAccion == orden) ? 'bg-danger text-white' : ''">{{ orden.num_pizzas }}</td>
+                                    <td [ngClass]="(ordenAccion && ordenAccion == orden) ? 'bg-danger text-white' : ''">{{ orden.total }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="ordenes.length > 0">
+                            <div class="text-center">
+                                <button class="btn btn-primary mx-2" (click)="completarOrden()">Terminar</button>
+                                <button *ngIf="ordenAccion && ordenAccion.pizza" class="btn btn-danger mx-2" (click)="eliminarOrden()">Eliminar</button>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <!-- mostrar solo ventas de hoy -->
+                        <table class="table-responsive table table-striped table-bordered" *ngIf="vistaDiaria">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="bg-info bg-opacity-50">
+                                        Nombre
+                                    </th>
+                                    <th scope="col" class="bg-info bg-opacity-50">
+                                        Total
+                                    </th>
+                                    <th scope="col" class="bg-info bg-opacity-50">
+                                        Fecha
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let venta of ventas">
+                                    <td>{{ venta.cliente.nombre }}</td>
+                                    <td>{{ totalVenta(venta) }}</td>
+                                    <td>{{ venta.fecha | date }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">Total</td>
+                                    <td class="text-center" colspan="2">{{ totalVentasDia() }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table *ngIf="!vistaDiaria" class="table-responsive table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="bg-info bg-opacity-50">Año</th>
+                                    <th class="bg-info bg-opacity-50">Mes</th>
+                                    <th class="bg-info bg-opacity-50">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngIf="detalleMensual().length > 0">
+                                    <ng-container *ngFor="let anio of detalleMensual()">
+                                        <tr *ngFor="let mes of anio.meses">
+                                            <td>{{ anio.anio }}</td>
+                                            <td>{{ (mes.mes + 1) }}</td>
+                                            <td>{{ mes.total }}</td>
+                                        </tr>
+                                    </ng-container>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                        <div class="my-4 text-center">
+                            <button class="btn-outline-success btn" (click)="vistaDiaria = !vistaDiaria">Cambiar vista</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
